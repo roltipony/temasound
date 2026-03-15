@@ -5,7 +5,7 @@ Plataforma de streaming de música self-hosted para tu red local.
 ## Estructura del proyecto
 
 ```
-soundwave/
+temasound/
 ├── server/              ← Servidor Node.js para Mac Mini
 │   ├── server.js
 │   ├── package.json
