@@ -1,4 +1,4 @@
-# 🎵 SoundWave
+# 🎵 TemaSound
 
 Plataforma de streaming de música self-hosted para tu red local.
 
