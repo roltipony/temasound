@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-#  SoundWave - Script de instalación para Mac Mini
+#  TemaSound - Script de instalación para Mac Mini
 #  Ejecutar como: bash deploy.sh
 # ============================================================
 
@@ -43,10 +43,10 @@ log "PM2 OK"
 
 # ── 4. Crear directorios ───────────────────────────────────────
 step "Creando estructura de directorios"
-sudo mkdir -p /opt/soundwave/server
-sudo mkdir -p /opt/soundwave/music
-sudo chown -R $(whoami) /opt/soundwave
-log "Directorios creados en /opt/soundwave"
+sudo mkdir -p /opt/temasound/server
+sudo mkdir -p /opt/temasound/music
+sudo chown -R $(whoami) /opt/temasound
+log "Directorios creados en /opt/temasound"
 
 # ── 5. Copiar archivos del servidor ────────────────────────────
 step "Copiando archivos del servidor"
@@ -56,24 +56,24 @@ if [ ! -f "$SCRIPT_DIR/server/server.js" ]; then
   error "No se encuentra server/server.js. Ejecuta este script desde la raíz del proyecto."
 fi
 
-cp -r "$SCRIPT_DIR/server/"* /opt/soundwave/server/
+cp -r "$SCRIPT_DIR/server/"* /opt/temasound/server/
 log "Archivos copiados"
 
 # ── 6. Instalar dependencias npm ───────────────────────────────
 step "Instalando dependencias Node.js"
-cd /opt/soundwave/server
+cd /opt/temasound/server
 npm install --production
 log "Dependencias instaladas"
 
 # ── 7. Generar JWT_SECRET aleatorio ───────────────────────────
 step "Configurando JWT Secret"
 JWT_SECRET=$(openssl rand -hex 32)
-sed -i '' "s/REPLACE_WITH_A_LONG_RANDOM_STRING_HERE/$JWT_SECRET/" /opt/soundwave/server/ecosystem.config.js
+sed -i '' "s/REPLACE_WITH_A_LONG_RANDOM_STRING_HERE/$JWT_SECRET/" /opt/temasound/server/ecosystem.config.js
 log "JWT_SECRET generado y configurado"
 
 # ── 8. Iniciar con PM2 ────────────────────────────────────────
 step "Iniciando servidor con PM2"
-cd /opt/soundwave/server
+cd /opt/temasound/server
 pm2 start ecosystem.config.js
 pm2 save
 log "Servidor iniciado"
@@ -90,13 +90,13 @@ LOCAL_IP=$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/n
 
 echo ""
 echo "════════════════════════════════════════════════"
-echo "  🎵 SoundWave instalado correctamente"
+echo "  🎵 TemaSound instalado correctamente"
 echo "════════════════════════════════════════════════"
 echo ""
 echo "  IP local del Mac Mini: ${GREEN}$LOCAL_IP${NC}"
 echo "  URL del servidor:      ${GREEN}http://$LOCAL_IP:3000${NC}"
-echo "  Directorio música:     /opt/soundwave/music"
-echo "  Base de datos:         /opt/soundwave/soundwave.db"
+echo "  Directorio música:     /opt/temasound/music"
+echo "  Base de datos:         /opt/temasound/temasound.db"
 echo ""
 echo "  Usuario admin por defecto:"
 echo "    Usuario:  admin"
@@ -104,8 +104,8 @@ echo "    Password: admin123  ${RED}← CÁMBIALO${NC}"
 echo ""
 echo "  Comandos útiles:"
 echo "    pm2 status           → Ver estado"
-echo "    pm2 logs soundwave   → Ver logs"
-echo "    pm2 restart soundwave → Reiniciar"
+echo "    pm2 logs temasound   → Ver logs"
+echo "    pm2 restart temasound → Reiniciar"
 echo ""
 echo "  En la app móvil, configura:"
 echo "    SERVER_URL = http://$LOCAL_IP:3000"

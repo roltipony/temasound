@@ -42,7 +42,7 @@ export default function LoginScreen() {
           <View style={styles.logoIcon}>
             <Text style={styles.logoEmoji}>🎵</Text>
           </View>
-          <Text style={styles.logoText}>SoundWave</Text>
+          <Text style={styles.logoText}>TemaSound</Text>
           <Text style={styles.tagline}>Your music, anywhere on your network</Text>
         </View>
 

@@ -9,9 +9,9 @@ const Database = require('better-sqlite3');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const JWT_SECRET = process.env.JWT_SECRET || 'soundwave-secret-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET || 'temasound-secret-change-in-production';
 const MUSIC_DIR = process.env.MUSIC_DIR || path.join(__dirname, 'music');
-const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'soundwave.db');
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'temasound.db');
 
 // Ensure music dir exists
 if (!fs.existsSync(MUSIC_DIR)) fs.mkdirSync(MUSIC_DIR, { recursive: true });
@@ -299,6 +299,6 @@ if (userCount.c === 0) {
 }
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🎵 SoundWave server running on port ${PORT}`);
+  console.log(`🎵 TemaSound server running on port ${PORT}`);
   console.log(`📁 Music directory: ${MUSIC_DIR}`);
 });

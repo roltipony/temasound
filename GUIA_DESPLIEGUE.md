@@ -1,4 +1,4 @@
-# 🎵 SoundWave — Guía de Despliegue Completa
+# 🎵 TemaSound — Guía de Despliegue Completa
 
 ## Arquitectura del sistema
 
@@ -7,7 +7,7 @@
 │         Mac Mini (Servidor)      │
 │  Node.js + Express               │
 │  Puerto: 3000                    │
-│  /opt/soundwave/music  ←── MP3s  │
+│  /opt/temasound/music  ←── MP3s  │
 │  SQLite (usuarios, playlists)    │
 └────────────┬────────────────────┘
              │ Red WiFi local
@@ -26,9 +26,9 @@
 
 ### Paso 1: Descargar el proyecto
 
-Descarga o copia la carpeta `soundwave/` en tu Mac Mini, por ejemplo en tu escritorio:
+Descarga o copia la carpeta `temasound/` en tu Mac Mini, por ejemplo en tu escritorio:
 ```
-~/Desktop/soundwave/
+~/Desktop/temasound/
 ```
 
 ### Paso 2: Ejecutar el script de instalación
@@ -36,7 +36,7 @@ Descarga o copia la carpeta `soundwave/` en tu Mac Mini, por ejemplo en tu escri
 Abre **Terminal** y ejecuta:
 
 ```bash
-cd ~/Desktop/soundwave
+cd ~/Desktop/temasound
 chmod +x deploy.sh
 bash deploy.sh
 ```
@@ -45,7 +45,7 @@ El script hace automáticamente:
 - Instala Homebrew (si no lo tienes)
 - Instala Node.js
 - Instala PM2 (gestor de procesos)
-- Copia el servidor a `/opt/soundwave/`
+- Copia el servidor a `/opt/temasound/`
 - Instala dependencias npm
 - Genera un JWT secret seguro
 - Inicia el servidor
@@ -56,7 +56,7 @@ El script hace automáticamente:
 ```bash
 pm2 status
 ```
-Debes ver `soundwave` con estado `online`.
+Debes ver `temasound` con estado `online`.
 
 Prueba en el navegador de tu Mac:
 ```
@@ -113,7 +113,7 @@ export const SERVER_URL = 'http://192.168.1.45:3000';
 ### Paso 3: Instalar dependencias de la app
 
 ```bash
-cd ~/Desktop/soundwave/mobile-app
+cd ~/Desktop/temasound/mobile-app
 npm install
 ```
 
@@ -178,28 +178,28 @@ Alternativamente, para pruebas sin pagar, usa **Expo Go** (Paso 4 arriba).
 
 ```bash
 pm2 status                  # Ver estado de todos los procesos
-pm2 logs soundwave          # Ver logs en tiempo real
-pm2 restart soundwave       # Reiniciar el servidor
-pm2 stop soundwave          # Parar el servidor
-pm2 start soundwave         # Iniciar el servidor
+pm2 logs temasound          # Ver logs en tiempo real
+pm2 restart temasound       # Reiniciar el servidor
+pm2 stop temasound          # Parar el servidor
+pm2 start temasound         # Iniciar el servidor
 ```
 
 ### Ver música almacenada
 
 ```bash
-ls /opt/soundwave/music/
+ls /opt/temasound/music/
 ```
 
 ### Backup de la base de datos
 
 ```bash
-cp /opt/soundwave/soundwave.db ~/Desktop/soundwave-backup-$(date +%Y%m%d).db
+cp /opt/temasound/temasound.db ~/Desktop/temasound-backup-$(date +%Y%m%d).db
 ```
 
 ### Ver logs de errores
 
 ```bash
-pm2 logs soundwave --err
+pm2 logs temasound --err
 ```
 
 ---
@@ -243,8 +243,8 @@ Esto te da una URL pública tipo `https://xxxx.trycloudflare.com`.
 | Problema | Solución |
 |----------|----------|
 | "Network request failed" en la app | Verifica que la IP en `api.js` sea correcta y estés en la misma WiFi |
-| El servidor no arranca | `pm2 logs soundwave --err` para ver el error |
-| Música no reproduce | Verifica que el archivo no esté corrupto con `pm2 logs soundwave` |
+| El servidor no arranca | `pm2 logs temasound --err` para ver el error |
+| Música no reproduce | Verifica que el archivo no esté corrupto con `pm2 logs temasound` |
 | App no encuentra el servidor tras reiniciar Mac | Ejecuta `pm2 resurrect` o reinicia: `pm2 start ecosystem.config.js` |
 | "Expo Go" no conecta | Asegúrate de estar en la misma red WiFi que el Mac Mini |
 
@@ -253,12 +253,12 @@ Esto te da una URL pública tipo `https://xxxx.trycloudflare.com`.
 ## Estructura final de archivos
 
 ```
-/opt/soundwave/
+/opt/temasound/
 ├── server/
 │   ├── server.js          ← Servidor principal
 │   ├── ecosystem.config.js ← Config de PM2
 │   ├── package.json
 │   └── node_modules/
 ├── music/                  ← Archivos de audio
-└── soundwave.db            ← Base de datos SQLite
+└── temasound.db            ← Base de datos SQLite
 ```

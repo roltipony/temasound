@@ -1,7 +1,7 @@
 {
-  "name": "soundwave-server",
+  "name": "temasound-server",
   "version": "1.0.0",
-  "description": "SoundWave music streaming server",
+  "description": "TemaSound music streaming server",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
